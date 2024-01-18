@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\Cprofile;
 use App\Http\Controllers\Experience;
+use App\Http\Controllers\Offer;
 use App\Http\Controllers\Uprofile;
 use App\Http\Controllers\userAuth;
 use Illuminate\Http\Request;
@@ -33,3 +34,8 @@ Route::get('getExp/{id}',  [Experience::class, 'getExp']);
 Route::post('CreateExp',   [Experience::class, 'CreateExp']);
 Route::post('UpdateExp',   [Experience::class, 'UpdateExp']);
 Route::post('DeleteExp',   [Experience::class, 'DeleteExp']);
+//offer
+Route::get('getOffer/{id}',  [Offer::class, 'getOffer']);
+Route::post('CreateOffer',   [Offer::class, 'CreateOffer']);
+Route::post('UpdateOffer',   [Offer::class, 'UpdateOffer']);
+Route::post('DeleteOffer',   [Offer::class, 'DeleteOffer']);
