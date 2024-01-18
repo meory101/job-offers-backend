@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication;
+use App\Http\Controllers\Cprofile;
 use App\Http\Controllers\Uprofile;
 use App\Http\Controllers\userAuth;
 use Illuminate\Http\Request;
@@ -21,3 +22,7 @@ Route::post('CSignIn', [Authentication::class, 'CSignIn']);
 Route::get('getUProfile/{id}', [Uprofile::class, 'getUProfile']);
 Route::post('CreateUProfile', [Uprofile::class, 'CreateUProfile']);
 Route::post('UpdateUProfile', [Uprofile::class, 'UpdateUProfile']);
+
+Route::get('getCProfile/{id}',  [Cprofile::class, 'getCProfile']);
+Route::post('CreateCProfile',   [Cprofile::class, 'CreateCProfile']);
+Route::post('UpdateCProfile',   [Cprofile::class, 'UpdateCProfile']);
