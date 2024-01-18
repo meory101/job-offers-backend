@@ -10,9 +10,9 @@ use ReturnTypeWillChange;
 
 class Uprofile extends Controller
 {
-    public function getUProfile(Request $request)
+    public function getUProfile($id)
     {
-        $uprofile = ModelsUprofile::where('id',$request->id);
+        $uprofile = ModelsUprofile::where('id',$id)->first();
         if ($uprofile) {
             return json_encode([
                 'status' => 'success',
@@ -50,11 +50,9 @@ class Uprofile extends Controller
         $uprofile->cv_url = $request->cv_url;
         $uprofile->user_id = $request->user_id;
         $uprofile->save();
-        $uprofileid = DB::getPdo()->lastInsertId();
         if ($uprofile) {
             return json_encode([
                 'status' => 'success',
-                'message' => $uprofileid
             ]);
         }
         return json_encode([

@@ -14,5 +14,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('USignUp',[Authentication::class, 'USignUp']);
 Route::post('USignIn', [Authentication::class, 'USignIn']);
+
 Route::post('CSignUp', [Authentication::class, 'CSignUp']);
 Route::post('CSignIn', [Authentication::class, 'CSignIn']);
+
+Route::get('getUProfile/{id}', [Uprofile::class, 'getUProfile']);
+Route::post('CreateUProfile', [Uprofile::class, 'CreateUProfile']);
+Route::post('UpdateUProfile', [Uprofile::class, 'UpdateUProfile']);
