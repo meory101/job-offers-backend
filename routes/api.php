@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\Cprofile;
+use App\Http\Controllers\Experience;
 use App\Http\Controllers\Uprofile;
 use App\Http\Controllers\userAuth;
 use Illuminate\Http\Request;
@@ -26,3 +27,9 @@ Route::post('UpdateUProfile', [Uprofile::class, 'UpdateUProfile']);
 Route::get('getCProfile/{id}',  [Cprofile::class, 'getCProfile']);
 Route::post('CreateCProfile',   [Cprofile::class, 'CreateCProfile']);
 Route::post('UpdateCProfile',   [Cprofile::class, 'UpdateCProfile']);
+
+///exp
+Route::get('getExp/{id}',  [Experience::class, 'getExp']);
+Route::post('CreateExp',   [Experience::class, 'CreateExp']);
+Route::post('UpdateExp',   [Experience::class, 'UpdateExp']);
+Route::post('DeleteExp',   [Experience::class, 'DeleteExp']);
