@@ -40,3 +40,6 @@ Route::post('CreateOffer',   [Offer::class, 'CreateOffer']);
 Route::post('UpdateOffer',   [Offer::class, 'UpdateOffer']);
 Route::post('DeleteOffer',   [Offer::class, 'DeleteOffer']);
 
+Route::get('getUoffers/{userid}',   [User_Offer::class, 'getUoffers']);
+Route::get('getCoffers/{comid}',   [User_Offer::class, 'getCoffers']);
+Route::get('checkSendCv/{userid}/{offerid}',   [User_Offer::class, 'checkSendCv']);

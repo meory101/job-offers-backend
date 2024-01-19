@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('user_offer', function (Blueprint $table) {
             $table->id();
-            $table->string('res');
+            $table->boolean('res');
             $table->string('file_url');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('offer_id')->unsigned();

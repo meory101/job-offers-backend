@@ -32,4 +32,11 @@ class User extends Authenticatable
     public function uprofile(){
         return $this->hasOne(Uprofile::class, 'id', 'user_id');
     }
+    public function offer(){
+        return $this->belongsToMany(offer::class,'user_offer','id','user_id');
+    }
+    public function user_offer()
+    {
+        return $this->belongsTo(User_Offer::class, 'id', 'user_id');
+    }
 }

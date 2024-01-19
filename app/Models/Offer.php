@@ -13,4 +13,12 @@ class Offer extends Model
     {
         return $this->belongsTo(Cprofile::class, 'profile_id', 'id');
     }
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'user_offer', 'id', 'offer_id');
+    }
+    public function user_offer()
+    {
+        return $this->belongsTo(User_Offer::class, 'id', 'offer_id');
+    }
 }
