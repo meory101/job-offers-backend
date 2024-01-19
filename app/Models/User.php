@@ -19,7 +19,6 @@ class User extends Authenticatable
         'password',
     ];
 
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -30,4 +29,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function uprofile(){
+        return $this->hasOne(Uprofile::class, 'id', 'user_id');
+    }
 }

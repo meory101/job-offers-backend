@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('graduated_at');
             $table->string('worked_at');
             $table->string('cv_url');
+            $table->string('image_url');
+            $table->string('cover_url');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

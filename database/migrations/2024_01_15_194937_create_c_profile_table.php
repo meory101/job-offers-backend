@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+ 
     public function up(): void
     {
         Schema::create('c_profile', function (Blueprint $table) {
             $table->id();
             $table->string('work_type');
             $table->string('location');
+            $table->string('image_url');
+            $table->string('cover_url');
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('users');
             $table->timestamps();

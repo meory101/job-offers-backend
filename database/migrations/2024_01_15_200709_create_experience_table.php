@@ -13,6 +13,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
+            $table->string('image_url');
+            $table->string('years');
             $table->bigInteger('profile_id')->unsigned();
             $table->foreign('profile_id')->references('id')->on('u_profile');
             $table->timestamps();

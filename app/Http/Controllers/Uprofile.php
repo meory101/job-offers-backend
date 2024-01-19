@@ -12,11 +12,12 @@ class Uprofile extends Controller
 {
     public function getUProfile($id)
     {
-        $uprofile = ModelsUprofile::where('id',$id)->first();
+        $uprofile = ModelsUprofile::where('user_id',$id)->first();
         if ($uprofile) {
             return json_encode([
                 'status' => 'success',
-                'message' => $uprofile
+                'message' => $uprofile,
+                'userdata' => $uprofile->user
             ]);
         }
         return json_encode([
@@ -29,6 +30,8 @@ class Uprofile extends Controller
         $uprofile->graduated_at = $request->graduated_at;
         $uprofile->worked_at = $request->worked_at;
         $uprofile->cv_url = $request->cv_url;
+        $uprofile->image_url = $request->image_url;
+        $uprofile->cover_url = $request->cover_url;
         $uprofile->user_id = $request->user_id;
         $uprofile->save();
         $uprofileid = DB::getPdo()->lastInsertId();
@@ -48,6 +51,8 @@ class Uprofile extends Controller
         $uprofile->graduated_at = $request->graduated_at;
         $uprofile->worked_at = $request->worked_at;
         $uprofile->cv_url = $request->cv_url;
+        $uprofile->image_url = $request->image_url;
+        $uprofile->cover_url = $request->cover_url;
         $uprofile->user_id = $request->user_id;
         $uprofile->save();
         if ($uprofile) {

@@ -11,5 +11,8 @@ class Company extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'company';
-
+    public function cprofile()
+    {
+        return $this->hasOne(Cprofile::class, 'id', 'company_id');
+    }
 }

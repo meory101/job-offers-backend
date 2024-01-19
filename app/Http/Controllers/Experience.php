@@ -11,8 +11,8 @@ class Experience extends Controller
 {
     public function  getExp($id)
     {
-        $exp = ModelsExperience::where('id', $id)->first();
-        if ($exp) {
+        $exp = ModelsExperience::where('profile_id', $id)->get();
+        if (count($exp)>0) {
             return json_encode([
                 'status' => 'success',
                 'message' => $exp
@@ -27,6 +27,8 @@ class Experience extends Controller
         $exp = new ModelsExperience();
         $exp->title = $request->title;
         $exp->content = $request->content;
+        $exp->image_url = $request->image_url;
+        $exp->years = $request->years;
         $exp->profile_id = $request->profile_id;
         $exp->save();
         $expid = DB::getPdo()->lastInsertId();
@@ -45,6 +47,8 @@ class Experience extends Controller
         $exp =  ModelsExperience::where('id', $request->id)->first();
         $exp->title = $request->title;
         $exp->content = $request->content;
+        $exp->image_url = $request->image_url;
+        $exp->years = $request->years;
         $exp->profile_id = $request->profile_id;
         $exp->save();
         if ($exp) {

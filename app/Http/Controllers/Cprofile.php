@@ -15,7 +15,8 @@ class Cprofile extends Controller
         if ($cprofile) {
             return json_encode([
                 'status' => 'success',
-                'message' => $cprofile
+                'message' => $cprofile,
+                'comdata' => $cprofile->company
             ]);
         }
         return json_encode([
@@ -27,6 +28,8 @@ class Cprofile extends Controller
         $cprofile = new ModelsCprofile();
         $cprofile->work_type = $request->work_type;
         $cprofile->location = $request->location;
+        $cprofile->image_url = $request->image_url;
+        $cprofile->cover_url = $request->cover_url;
         $cprofile->company_id = $request->company_id;
         $cprofile->save();
         $cprofileid = DB::getPdo()->lastInsertId();
@@ -45,6 +48,8 @@ class Cprofile extends Controller
         $cprofile =  ModelsCprofile::where('id', $request->id)->first();
         $cprofile->work_type = $request->work_type;
         $cprofile->location = $request->location;
+        $cprofile->image_url = $request->image_url;
+        $cprofile->cover_url = $request->cover_url;
         $cprofile->company_id = $request->company_id;
         $cprofile->save();
         if ($cprofile) {

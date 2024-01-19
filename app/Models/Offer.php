@@ -9,5 +9,8 @@ class Offer extends Model
 {
     use HasFactory;
     protected $table = 'offer';
-
+    public function uprofile()
+    {
+        return $this->belongsTo(Cprofile::class, 'profile_id', 'id');
+    }
 }

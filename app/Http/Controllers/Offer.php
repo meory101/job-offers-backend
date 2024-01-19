@@ -11,8 +11,8 @@ class Offer extends Controller
 {
     public function  getOffer($id)
     {
-        $offer = ModelsOffer::where('id', $id)->first();
-        if ($offer) {
+        $offer = ModelsOffer::where('profile_id', $id)->get();
+        if (count($offer)>0) {
             return json_encode([
                 'status' => 'success',
                 'message' => $offer
