@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class Offer extends Controller
 {
+    public function getAllOffer(){
+        $offers = ModelsOffer::all();
+        if($offers){
+            return [
+                'status' => 'success',
+                'offers' => $offers
+            ];
+        }
+        return [
+            'status' => 'failed',
+            
+        ]; 
+
+    }
     public function  getOffer($id)
     {
         $offer = ModelsOffer::where('profile_id', $id)->get();
