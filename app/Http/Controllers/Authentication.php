@@ -67,8 +67,8 @@ class Authentication extends Controller
         }
 
         $user =  User::where('email', $request->email)->first();
-
-        if ($user) {
+        $comapny =  Company::where('email', $request->email)->first();
+        if ($user || $comapny) {
             if (!Hash::check($request->password, $user->password)) {
                 return json_encode([
                     'status' => 'failed',
@@ -82,7 +82,7 @@ class Authentication extends Controller
             return json_encode([
                 'status' => 'success',
                 'message' =>  'Signing in is successfully done',
-                'userid' =>  "$user->id",
+                'id' =>$user?  "$user->id" : "$comapny->id",
                 'token' =>  $user->createToken('token')->plainTextToken
             ]);
         }
@@ -127,49 +127,5 @@ class Authentication extends Controller
         ]);
     }
 
-    public function CSignIn(Request $request)
-    {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'email' => 'required|email',
-                'password' =>
-                'required|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/'
-            ]
-        );
-        if ($validator->fails()) {
-            return json_encode([
-                'status' => 'failed',
-                'message' => $validator->errors()
-            ]);
-        }
 
-        $comapny =  Company::where('email', $request->email)->first();
-
-        if ($comapny) {
-            if (!Hash::check($request->password, $comapny->password)) {
-                return json_encode([
-                    'status' => 'failed',
-                    'message' => [
-                        'name' =>
-                        'Password is wrong'
-                    ]
-                ]);
-            }
-
-            return json_encode([
-                'status' => 'success',
-                'message' =>  'Signing in is successfully done',
-                'userid' =>  "$comapny->id",
-                'token' =>  $comapny->createToken('token')->plainTextToken
-            ]);
-        }
-        return json_encode([
-            'status' => 'failed',
-            'message' => [
-                'email' =>
-                'Email is not found'
-            ]
-        ]);
-    }
 }
