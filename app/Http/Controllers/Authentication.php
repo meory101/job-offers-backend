@@ -35,11 +35,17 @@ class Authentication extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         $userid = DB::getPdo()->lastInsertId();
+        if ($userid) {
+            return json_encode([
+                'status' => 'success',
+                'message' =>  'Signing up is successfully done',
+                'userid' => $userid,
+                'token' =>  $user->createToken('token')->plainTextToken
+            ]);
+        }
         return json_encode([
-            'status' => 'success',
-            'message' =>  'Signing up is successfully done',
-            'userid' => $userid,
-            'token' =>  $user->createToken('token')->plainTextToken
+            'status' => 'failed',
+
         ]);
     }
 
@@ -166,5 +172,4 @@ class Authentication extends Controller
             ]
         ]);
     }
-   
 }
