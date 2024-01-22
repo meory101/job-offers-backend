@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class Offer extends Controller
 {
-    public function getAllOffer(){
+    public function getAllOffers(){
         $offers = ModelsOffer::all();
         if($offers){
             return [

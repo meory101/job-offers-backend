@@ -34,6 +34,7 @@ Route::post('CreateExp',   [Experience::class, 'CreateExp']);
 Route::post('UpdateExp',   [Experience::class, 'UpdateExp']);
 Route::post('DeleteExp',   [Experience::class, 'DeleteExp']);
 
+Route::get('getAllOffers',  [Offer::class, 'getAllOffers']);
 Route::get('getOffer/{id}',  [Offer::class, 'getOffer']);
 Route::post('CreateOffer',   [Offer::class, 'CreateOffer']);
 Route::post('UpdateOffer',   [Offer::class, 'UpdateOffer']);
