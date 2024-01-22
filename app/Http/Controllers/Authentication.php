@@ -82,7 +82,7 @@ class Authentication extends Controller
             return json_encode([
                 'status' => 'success',
                 'message' =>  'Signing in is successfully done',
-                'id' =>$user?  "$user->id" : "$comapny->id",
+                $user ? 'userid' :'comid' =>$user?  "$user->id" : "$comapny->id",
                 'token' =>  $user->createToken('token')->plainTextToken
             ]);
         }
