@@ -12,7 +12,7 @@ class Uprofile extends Controller
 {
     public function getUProfile($id)
     {
-        $uprofile = ModelsUprofile::where('user_id',$id)->first();
+        $uprofile = ModelsUprofile::where('user_id', $id)->first();
         if ($uprofile) {
             return json_encode([
                 'status' => 'success',
@@ -33,6 +33,17 @@ class Uprofile extends Controller
         $uprofile->image_url = $request->image_url;
         $uprofile->cover_url = $request->cover_url;
         $uprofile->user_id = $request->user_id;
+
+
+        $image = $request->file('image')->store('public');
+        $uprofile->image_url = basename($image);
+
+        $cover = $request->file('cover')->store('public');
+        $uprofile->cover_url = basename($cover);
+
+        $cv = $request->file('cv')->store('public');
+        $uprofile->cv_url = basename($cv);
+
         $uprofile->save();
         $uprofileid = DB::getPdo()->lastInsertId();
         if ($uprofile) {
@@ -47,13 +58,25 @@ class Uprofile extends Controller
     }
     public function UpdateUProfile(Request $request)
     {
-        $uprofile =  ModelsUprofile::where('id',$request->id)->first();
-        $uprofile->graduated_at = $request->graduated_at;
-        $uprofile->worked_at = $request->worked_at;
-        $uprofile->cv_url = $request->cv_url;
-        $uprofile->image_url = $request->image_url;
-        $uprofile->cover_url = $request->cover_url;
-        $uprofile->user_id = $request->user_id;
+        $uprofile =  ModelsUprofile::find($request->id);
+        if($request->has('graduated_at')){
+            $uprofile->graduated_at = $request->graduated_at;
+            $uprofile->worked_at = $request->worked_at;
+            $uprofile->user_id = $request->user_id;
+        }
+       
+        if($request->file('image')){
+            $image = $request->file('image')->store('public');
+            $uprofile->image_url = basename($image);
+        }
+        if ($request->file('cover')) {
+            $image = $request->file('cover')->store('public');
+            $uprofile->cover_url = basename($image);
+        }
+        if ($request->file('cv')) {
+            $image = $request->file('cv')->store('public');
+            $uprofile->cv_url = basename($image);
+        }
         $uprofile->save();
         if ($uprofile) {
             return json_encode([
