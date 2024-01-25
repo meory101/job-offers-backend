@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Experience as ModelsExperience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Experience extends Controller
 {
@@ -27,9 +28,12 @@ class Experience extends Controller
         $exp = new ModelsExperience();
         $exp->title = $request->title;
         $exp->content = $request->content;
-        $exp->image_url = $request->image_url;
         $exp->years = $request->years;
         $exp->profile_id = $request->profile_id;
+        if($request->file('image')){
+            $image = $request->file('image')->store('public');
+            $exp->image_url = basename($image);
+        }
         $exp->save();
         $expid = DB::getPdo()->lastInsertId();
         if ($exp) {
@@ -47,9 +51,13 @@ class Experience extends Controller
         $exp =  ModelsExperience::where('id', $request->id)->first();
         $exp->title = $request->title;
         $exp->content = $request->content;
-        $exp->image_url = $request->image_url;
         $exp->years = $request->years;
         $exp->profile_id = $request->profile_id;
+        if ($request->file('image')) {
+            Storage::delete('public/' . $exp->imageurl);
+            $image = $request->file('image')->store('public');
+            $exp->image_url = basename($image);
+        }
         $exp->save();
         if ($exp) {
             return json_encode([
