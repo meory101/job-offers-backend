@@ -68,7 +68,7 @@ class Authentication extends Controller
 
         $user =  User::where('email', $request->email)->first();
         $comapny =  Company::where('email', $request->email)->first();
-        if ($user || $comapny) {
+        if ($user) {
             if (!Hash::check($request->password, $user->password)) {
                 return json_encode([
                     'status' => 'failed',
@@ -84,6 +84,24 @@ class Authentication extends Controller
                 'message' =>  'Signing in is successfully done',
                 $user ? 'userid' :'comid' =>$user?  "$user->id" : "$comapny->id",
                 'token' =>  $user->createToken('token')->plainTextToken
+            ]);
+        }
+        else if($comapny){
+            if (!Hash::check($request->password, $comapny->password)) {
+                return json_encode([
+                    'status' => 'failed',
+                    'message' => [
+                        'name' =>
+                        'Password is wrong'
+                    ]
+                ]);
+            }
+
+            return json_encode([
+                'status' => 'success',
+                'message' =>  'Signing in is successfully done',
+                $user ? 'userid' : 'comid' => $user ?  "$user->id" : "$comapny->id",
+                'token' =>$user?  $user->createToken('token')->plainTextToken: $comapny->createToken('token')->plainTextToken
             ]);
         }
         return json_encode([

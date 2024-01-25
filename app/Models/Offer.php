@@ -9,7 +9,7 @@ class Offer extends Model
 {
     use HasFactory;
     protected $table = 'offer';
-    public function uprofile()
+    public function cprofile()
     {
         return $this->belongsTo(Cprofile::class, 'profile_id', 'id');
     }
@@ -20,5 +20,8 @@ class Offer extends Model
     public function user_offer()
     {
         return $this->belongsTo(User_Offer::class, 'id', 'offer_id');
+    }
+    public function comment(){
+        return $this->hasMany(Comment::class,'id','offer_id');
     }
 }

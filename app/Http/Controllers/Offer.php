@@ -9,24 +9,36 @@ use Illuminate\Support\Facades\DB;
 
 class Offer extends Controller
 {
-    public function getAllOffers(){
+    public function getAllOffers()
+    {
         $offers = ModelsOffer::all();
-        if($offers){
+        $message  = [];
+        for ($i = 0; $i < count($offers); $i++) {
+            array_push(
+                $message,
+                [
+                    'offers' => $offers[$i],
+                    'com_profile' =>
+                    json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id))->message,
+                    'com_name' => $offers[$i]->cprofile->company
+                ]
+                );
+        }
+        if (count($offers)>0) {
             return [
                 'status' => 'success',
-                'offers' => $offers
+               'message' => $message
             ];
         }
         return [
             'status' => 'failed',
-            
-        ]; 
 
+        ];
     }
     public function  getOffer($id)
     {
         $offer = ModelsOffer::where('profile_id', $id)->get();
-        if (count($offer)>0) {
+        if (count($offer) > 0) {
             return json_encode([
                 'status' => 'success',
                 'message' => $offer

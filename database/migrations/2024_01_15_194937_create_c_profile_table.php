@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->string('cover_url');
             $table->bigInteger('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('users');
+            $table->foreign('company_id')->references('id')->on('company');
             $table->timestamps();
         });
     }

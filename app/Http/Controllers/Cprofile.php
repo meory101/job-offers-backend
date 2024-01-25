@@ -28,9 +28,11 @@ class Cprofile extends Controller
         $cprofile = new ModelsCprofile();
         $cprofile->work_type = $request->work_type;
         $cprofile->location = $request->location;
-        $cprofile->image_url = $request->image_url;
-        $cprofile->cover_url = $request->cover_url;
         $cprofile->company_id = $request->company_id;
+        $image = $request->file('image')->store('public');
+        $cprofile->image_url = basename($image);
+        $cover = $request->file('cover')->store('public');
+        $cprofile->cover_url = basename($cover);
         $cprofile->save();
         $cprofileid = DB::getPdo()->lastInsertId();
         if ($cprofile) {

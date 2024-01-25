@@ -29,14 +29,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function uprofile(){
+    public function uprofile()
+    {
         return $this->hasOne(Uprofile::class, 'id', 'user_id');
     }
-    public function offer(){
-        return $this->belongsToMany(offer::class,'user_offer','id','user_id');
+    public function offer()
+    {
+        return $this->belongsToMany(offer::class, 'user_offer', 'id', 'user_id');
     }
     public function user_offer()
     {
         return $this->belongsTo(User_Offer::class, 'id', 'user_id');
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'id', 'user_id');
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Authentication;
+use App\Http\Controllers\Comment as ControllersComment;
 use App\Http\Controllers\Cprofile;
 use App\Http\Controllers\Experience;
 use App\Http\Controllers\Offer;
 use App\Http\Controllers\Uprofile;
 use App\Http\Controllers\User_Offer;
 use App\Http\Controllers\userAuth;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +45,6 @@ Route::post('DeleteOffer',   [Offer::class, 'DeleteOffer']);
 Route::get('getUoffers/{userid}',   [User_Offer::class, 'getUoffers']);
 Route::get('getCoffers/{comid}',   [User_Offer::class, 'getCoffers']);
 Route::get('checkSendCv/{userid}/{offerid}',   [User_Offer::class, 'checkSendCv']);
+
+Route::get('getComments/{id}',   [ControllersComment::class, 'getComments']);
+Route::post('addComment',   [ControllersComment::class, 'addComment']);
