@@ -41,6 +41,7 @@ Route::get('getOffer/{id}',  [Offer::class, 'getOffer']);
 Route::post('CreateOffer',   [Offer::class, 'CreateOffer']);
 Route::post('UpdateOffer',   [Offer::class, 'UpdateOffer']);
 Route::post('DeleteOffer',   [Offer::class, 'DeleteOffer']);
+Route::get('SearchOffer/{hashtag}',  [Offer::class, 'SearchOffer']);
 
 Route::get('getUoffers/{userid}',   [User_Offer::class, 'getUoffers']);
 Route::get('getCoffers/{comid}',   [User_Offer::class, 'getCoffers']);

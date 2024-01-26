@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Uprofile as ModelsUprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use ReturnTypeWillChange;
 
 class Uprofile extends Controller
@@ -66,14 +67,17 @@ class Uprofile extends Controller
         }
        
         if($request->file('image')){
+            Storage::delete('public/'.$uprofile->image_url);
             $image = $request->file('image')->store('public');
             $uprofile->image_url = basename($image);
         }
         if ($request->file('cover')) {
+            Storage::delete('public/' . $uprofile->image_url);
             $image = $request->file('cover')->store('public');
             $uprofile->cover_url = basename($image);
         }
         if ($request->file('cv')) {
+            Storage::delete('public/' . $uprofile->image_url);
             $image = $request->file('cv')->store('public');
             $uprofile->cv_url = basename($image);
         }

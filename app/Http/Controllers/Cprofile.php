@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Cprofile as ModelsCprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Cprofile extends Controller
 {
     public function getCProfile($id)
     {
-        $cprofile = ModelsCprofile::where('id', $id)->first();
+        $cprofile = ModelsCprofile::where('company_id', $id)->first();
         if ($cprofile) {
             return json_encode([
                 'status' => 'success',
@@ -48,12 +49,25 @@ class Cprofile extends Controller
     public function UpdateCProfile(Request $request)
     {
         $cprofile =  ModelsCprofile::where('id', $request->id)->first();
-        $cprofile->work_type = $request->work_type;
-        $cprofile->location = $request->location;
-        $cprofile->image_url = $request->image_url;
-        $cprofile->cover_url = $request->cover_url;
-        $cprofile->company_id = $request->company_id;
-        $cprofile->save();
+        if ($request->has('work_type')) {
+            $cprofile->work_type = $request->work_type;
+            $cprofile->location = $request->location;
+            $cprofile->company_id = $request->com_id;
+        }
+
+
+        if ($request->file('image')) {
+            Storage::delete('public/' . $cprofile->image_url);
+            $image = $request->file('image')->store('public');
+            $cprofile->image_url = basename($image);
+        }
+        if ($request->file('cover')) {
+            Storage::delete('public/' . $cprofile->image_url);
+            $image = $request->file('cover')->store('public');
+            $cprofile->cover_url = basename($image);
+        }
+
+        $cprofile = $cprofile->save();
         if ($cprofile) {
             return json_encode([
                 'status' => 'success',

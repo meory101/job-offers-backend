@@ -48,6 +48,34 @@ class Offer extends Controller
             'status' => 'failed',
         ]);
     }
+    public function  SearchOffer($hashtag)
+    {
+        $message  = [];
+        $offers = ModelsOffer::where('hashtag','like','%'. $hashtag)->get();
+        if (count($offers) > 0) {
+            for ($i = 0; $i < count($offers); $i++) {
+                array_push(
+                    $message,
+                    [
+                        'offers' => $offers[$i],
+                        'com_profile' =>
+                        json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id))->message,
+                        'com_name' => $offers[$i]->cprofile->company
+                    ]
+                );
+            }
+            if (count($message) > 0) {
+                return [
+                    'status' => 'success',
+                    'message' => $message
+                ];
+            }
+          }
+        return [
+            'status' => 'failed',
+
+        ];
+    }
     public function CreateOffer(Request $request)
     {
         $offer = new ModelsOffer();
