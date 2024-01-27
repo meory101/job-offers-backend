@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Offer as ModelsOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Offer extends Controller
 {
@@ -19,15 +20,15 @@ class Offer extends Controller
                 [
                     'offers' => $offers[$i],
                     'com_profile' =>
-                    json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id))->message,
+                    json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id)),
                     'com_name' => $offers[$i]->cprofile->company
                 ]
-                );
+            );
         }
-        if (count($offers)>0) {
+        if (count($offers) > 0) {
             return [
                 'status' => 'success',
-               'message' => $message
+                'message' => $message
             ];
         }
         return [
@@ -51,7 +52,7 @@ class Offer extends Controller
     public function  SearchOffer($hashtag)
     {
         $message  = [];
-        $offers = ModelsOffer::where('hashtag','like','%'. $hashtag)->get();
+        $offers = ModelsOffer::where('hashtag', 'like', '%' . $hashtag)->get();
         if (count($offers) > 0) {
             for ($i = 0; $i < count($offers); $i++) {
                 array_push(
@@ -70,7 +71,7 @@ class Offer extends Controller
                     'message' => $message
                 ];
             }
-          }
+        }
         return [
             'status' => 'failed',
 
@@ -81,9 +82,12 @@ class Offer extends Controller
         $offer = new ModelsOffer();
         $offer->content = $request->content;
         $offer->hashtag = $request->hashtag;
-        $offer->image_url = $request->image_url;
         $offer->date = $request->date;
         $offer->profile_id = $request->profile_id;
+        if ($request->file('image')) {
+            $image = $request->file('image')->store('public');
+            $offer->image_url = basename($image);
+        }
         $offer->save();
         $offerid = DB::getPdo()->lastInsertId();
         if ($offer) {
@@ -101,9 +105,13 @@ class Offer extends Controller
         $offer =  ModelsOffer::where('id', $request->id)->first();
         $offer->content = $request->content;
         $offer->hashtag = $request->hashtag;
-        $offer->image_url = $request->image_url;
         $offer->date = $request->date;
         $offer->profile_id = $request->profile_id;
+        if ($request->file('image')) {
+            Storage::delete('public/' . $offer->imageurl);
+            $image = $request->file('image')->store('public');
+            $offer->image_url = basename($image);
+        }
         $offer->save();
         if ($offer) {
             return json_encode([
