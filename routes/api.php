@@ -28,6 +28,7 @@ Route::post('CreateUProfile', [Uprofile::class, 'CreateUProfile']);
 Route::post('UpdateUProfile', [Uprofile::class, 'UpdateUProfile']);
 
 Route::get('getCProfile/{id}',  [Cprofile::class, 'getCProfile']);
+Route::get('getProfile/{pid}',  [Cprofile::class, 'getProfile']);
 Route::post('CreateCProfile',   [Cprofile::class, 'CreateCProfile']);
 Route::post('UpdateCProfile',   [Cprofile::class, 'UpdateCProfile']);
 
@@ -49,3 +50,6 @@ Route::get('checkSendCv/{userid}/{offerid}',   [User_Offer::class, 'checkSendCv'
 
 Route::get('getComments/{id}',   [ControllersComment::class, 'getComments']);
 Route::post('addComment',   [ControllersComment::class, 'addComment']);
+
+Route::post('acceptcv',   [User_Offer::class, 'acceptcv']);
+Route::post('addDeal',   [User_Offer::class, 'addDeal']);

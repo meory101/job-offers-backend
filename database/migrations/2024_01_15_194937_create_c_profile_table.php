@@ -6,13 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
- 
+
     public function up(): void
     {
         Schema::create('c_profile', function (Blueprint $table) {
             $table->id();
             $table->string('work_type');
-            $table->string('location');
+            $table->string('lat');
+            $table->string('long');
             $table->string('image_url');
             $table->string('cover_url');
             $table->bigInteger('company_id')->unsigned();

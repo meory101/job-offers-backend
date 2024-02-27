@@ -60,7 +60,7 @@ class Offer extends Controller
                     [
                         'offers' => $offers[$i],
                         'com_profile' =>
-                        json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id))->message,
+                        json_decode(app(\App\Http\Controllers\Cprofile::class)->getCProfile($offers[$i]->cprofile->id)),
                         'com_name' => $offers[$i]->cprofile->company
                     ]
                 );
